@@ -6,11 +6,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 npm install @mui/material-nextjs @emotion/cache
 
-Config layout.tsx and theme.ts 
+Config layout.tsx and theme.ts  FOR Material UI
 
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 
 npm install @reduxjs/toolkit react-redux
+
+npm i react-slider
+
+npm i type /  react slider 
+
+npm i sass
 
 ```
 
