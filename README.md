@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Prerequisite
 
+```bash
+
 npm install @mui/material-nextjs @emotion/cache
 
 Config layout.tsx and theme.ts 
@@ -9,6 +11,8 @@ Config layout.tsx and theme.ts
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 
 npm install @reduxjs/toolkit react-redux
+
+```
 
 
 
