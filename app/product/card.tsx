@@ -21,8 +21,16 @@ type ProdProp = {
   product: Product[];
 };
 
-export default function card({ ProductItem }: { ProductItem: Product }) {
-  // const dispatch = useAppDispatch();
+import { useAppSelector, useAppDispatch } from "@/redux/store";
+
+import { AddCart, removeCart, increaseCart } from "@/redux/cartSlice";
+
+import { useRouter } from "next/router";
+
+export default function card({ ProductItem ,className}: { ProductItem: Product,className:string }) {
+  // const router = useRouter()
+
+  const dispatch = useAppDispatch();
 
   // React.useEffect(() => {
   //   dispatch(FetchProduct());
@@ -33,13 +41,59 @@ export default function card({ ProductItem }: { ProductItem: Product }) {
   //   x > num  ? x.substring(0, num) : x;
   // };
 
-
   const truncateString = (str: any) =>
     str.length > 23 ? str.slice(0, 23) : str;
 
+  // console.log("Prod Item   == > ", ProductItem);
+
+  let oe = [];
+
+  let mg = localStorage.getItem("cart") || "0";
+
+  console.log(" mg ====>  ", mg);
+
+  const cart = useAppSelector((state) => state.Cart.cart);
+
+  console.log("Cart in card === > ", cart)
+
+  // console.log(" ue ====>  ", JSON.parse(mg)[1]?.Title.id)
+
+  // let ue =Array.from(JSON.parse(mg)) ;
+
+  // console.log("ue ===> > >",ue)
 
 
-  console.log("Prod Item   == > ", ProductItem);
+  //+++++++++++++++++++++++
+
+
+
+   for (let i = 1; i <= cart.length; i++) {
+   console.log(" ID ==== >>  ", cart[i]?.Title.id);
+
+   oe.push(cart[i]?.Title.id);
+ }
+
+ console.log("oe === > ", oe);
+
+
+///++++++++++++++++++++++++++++++++++++++++++
+
+  // let ue = JSON.parse(mg);
+
+  // for (let i = 1; i <= ue.length; i++) {
+  //   console.log(" ID ==== >>  ", ue[i]?.Title.id);
+
+  //   oe.push(ue[i]?.Title.id);
+  // }
+
+  // console.log("oe === > ", oe);
+
+  // React.useEffect(() => {}, [oe]);
+
+  ///++++++++++++++++++++++++++++++++++++++++++
+
+
+  // console.log("Title  ===== >> ", ue[1]?.Title.id);
 
   return (
     <Card
@@ -81,6 +135,43 @@ export default function card({ ProductItem }: { ProductItem: Product }) {
         }}
       >
         <Button size="small">Share</Button>
+
+        {oe.includes(ProductItem.id) ? (
+          <div className="flex gap-1">
+            <Button
+              size="small"
+              value={ProductItem.id}
+              onClick={(e: any) => {
+                dispatch(removeCart(e.target.value));
+                // console.log(e.target.value)
+              }}
+            >
+              Decrease
+            </Button>
+
+            <Button
+              size="small"
+              value={ProductItem.id}
+              onClick={(e: any) => {
+                dispatch(increaseCart(e.target.value));
+                // console.log(e.target.value)
+              }}
+            >
+              Increase
+            </Button>
+          </div>
+        ) : (
+          <Button
+            size="small"
+            value={ProductItem.id}
+            onClick={(e: any) => {
+              dispatch(AddCart(e.target.value));
+              // console.log(e.target.value)
+            }}
+          >
+            Add To Cart
+          </Button>
+        )}
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>

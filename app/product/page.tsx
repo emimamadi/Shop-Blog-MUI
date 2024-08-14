@@ -47,9 +47,9 @@ export default function page() {
 
   // dispatch(FetchProduct());
 
-  const data = useAppSelector((state) => state.Product.data);
+  const data = useAppSelector((state) => state.Product?.data);
 
-  const issues = useAppSelector((state) => state.Product.issues);
+  const issues = useAppSelector((state) => state.Product?.issues);
 
   console.log("Data ====>", data);
 
@@ -59,7 +59,7 @@ export default function page() {
     id: any;
     title: any;
     price: any;
-    image:any
+    image: any;
   };
 
   interface ProdProp {
@@ -68,14 +68,17 @@ export default function page() {
 
   return (
     <div
-      style={{
-        display: "flex",
-        gap: "5rem",
-        marginBlock: "2rem",
-        marginInline: "2rem",
-      }}
+      // style={{
+      //   display: "flex",
+      //   gap: "2rem",
+      //   marginBlock: "2rem",
+      //   marginInline: "2rem",
+      // }}
+      className="bg-lime-400 flex flex-col lg:flex-row gap-10 my-5 mx-5  sm:bg-yellow-500 md:bg-blue-600 lg:bg-slate-500   xl:bg-teal-600 
+      
+      p-5 rounded"
     >
-      <List />
+      <List  className="bg-yellow-500" />
 
       {Object.values(data).length > 1 ? (
         <Box sx={{ flexGrow: 1 }}>
@@ -90,9 +93,9 @@ export default function page() {
 
             {(() => {
               if (Object.values(issues).length > 0) {
-                return Object.values(issues).map((ProductItem:any) => (
-                  <Grid item xs={2} sm={4} md={4} key={ProductItem.id} >
-                    <Card key={ProductItem.id} ProductItem={ProductItem} />
+                return Object.values(issues).map((ProductItem: any) => (
+                  <Grid item xs={12} sm={6} md={4} key={ProductItem.id}>
+                    <Card key={ProductItem.id} ProductItem={ProductItem} className="bg-slate-700"/>
 
                     {/* <Card
                               sx={{ maxWidth: 345 }}
