@@ -25,10 +25,16 @@ import { useAppSelector, useAppDispatch } from "@/redux/store";
 
 import { AddCart, removeCart, increaseCart } from "@/redux/cartSlice";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-export default function card({ ProductItem ,className}: { ProductItem: Product,className:string }) {
-  // const router = useRouter()
+export default function card({
+  ProductItem,
+  className,
+}: {
+  ProductItem: Product;
+  className: string;
+}) {
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
 
@@ -54,7 +60,7 @@ export default function card({ ProductItem ,className}: { ProductItem: Product,c
 
   const cart = useAppSelector((state) => state.Cart.cart);
 
-  console.log("Cart in card === > ", cart)
+  console.log("Cart in card === > ", cart);
 
   // console.log(" ue ====>  ", JSON.parse(mg)[1]?.Title.id)
 
@@ -62,21 +68,17 @@ export default function card({ ProductItem ,className}: { ProductItem: Product,c
 
   // console.log("ue ===> > >",ue)
 
-
   //+++++++++++++++++++++++
 
+  for (let i = 1; i <= cart.length; i++) {
+    console.log(" ID ==== >>  ", cart[i]?.Title.id);
 
+    oe.push(cart[i]?.Title.id);
+  }
 
-   for (let i = 1; i <= cart.length; i++) {
-   console.log(" ID ==== >>  ", cart[i]?.Title.id);
+  console.log("oe === > ", oe);
 
-   oe.push(cart[i]?.Title.id);
- }
-
- console.log("oe === > ", oe);
-
-
-///++++++++++++++++++++++++++++++++++++++++++
+  ///++++++++++++++++++++++++++++++++++++++++++
 
   // let ue = JSON.parse(mg);
 
@@ -92,7 +94,6 @@ export default function card({ ProductItem ,className}: { ProductItem: Product,c
 
   ///++++++++++++++++++++++++++++++++++++++++++
 
-
   // console.log("Title  ===== >> ", ue[1]?.Title.id);
 
   return (
@@ -107,6 +108,9 @@ export default function card({ ProductItem ,className}: { ProductItem: Product,c
         // height="5"
         image={ProductItem.image}
         style={{ height: "20rem" }}
+        onClick={() => {
+          router.push(`/product/${ProductItem.id}`);
+        }}
       />
       <CardContent>
         <Typography
@@ -172,7 +176,14 @@ export default function card({ ProductItem ,className}: { ProductItem: Product,c
             Add To Cart
           </Button>
         )}
-        <Button size="small">Learn More</Button>
+        <Button
+          size="small"
+          onClick={() => {
+            router.push(`/product/${ProductItem.id}`);
+          }}
+        >
+          Learn More
+        </Button>
       </CardActions>
     </Card>
 

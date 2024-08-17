@@ -13,6 +13,7 @@ export const FetchProduct = createAsyncThunk<
 >("product/FetchProduct", async (_, thunkAPI) => {
   const response = await fetch("https://fakestoreapi.com/products?limit=15", {
     method: "GET",
+    cache:"force-cache"
   });
 
   const data = response.json();

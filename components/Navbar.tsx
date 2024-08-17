@@ -88,7 +88,7 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Soroush Shop
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import productSlice from './productSlice'
 import cartSlice from './cartSlice';
+import blogSlice from './blogSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,8 @@ export const store = configureStore({
     Product: productSlice,
 
     Cart: cartSlice,
+
+    Blog:blogSlice
   },
 })
 

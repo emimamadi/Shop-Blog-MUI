@@ -18,7 +18,7 @@ import Typography from "@mui/material/Typography";
 
 //
 
-import Card from "./card";
+import Card from "@/app/product/card";
 
 import List from "./list";
 
@@ -78,7 +78,7 @@ export default function page() {
       
       p-5 rounded"
     >
-      <List  className="bg-yellow-500" />
+      <List className="bg-yellow-500" />
 
       {Object.values(data).length > 1 ? (
         <Box sx={{ flexGrow: 1 }}>
@@ -95,48 +95,11 @@ export default function page() {
               if (Object.values(issues).length > 0) {
                 return Object.values(issues).map((ProductItem: any) => (
                   <Grid item xs={12} sm={6} md={4} key={ProductItem.id}>
-                    <Card key={ProductItem.id} ProductItem={ProductItem} className="bg-slate-700"/>
-
-                    {/* <Card
-                              sx={{ maxWidth: 345 }}
-                              key={ProductItem.id}
-                              style={{ borderRadius: "15px" }}
-                            >
-                              <CardMedia
-                                component="img"
-                                alt="green iguana"
-                                // height="5"
-                                image={ProductItem.image}
-                                style={{ height: "20rem" }}
-                              />
-                              <CardContent>
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="div"
-                                  textAlign={"center"}
-                                >
-                                  {ProductItem.title}
-                                </Typography>
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                  justifyContent={"center"}
-                                  alignContent={"center"}
-                                >
-                                  $ {ProductItem.price}
-                                </Typography>
-                              </CardContent>
-                              <CardActions
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                <Button size="small">Share</Button>
-                                <Button size="small">Learn More</Button>
-                              </CardActions>
-                            </Card> */}
+                    <Card
+                      key={ProductItem.id}
+                      ProductItem={ProductItem}
+                      className="bg-slate-700"
+                    />
                   </Grid>
                 ));
               } else {
