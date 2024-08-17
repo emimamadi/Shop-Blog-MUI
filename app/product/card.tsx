@@ -38,19 +38,8 @@ export default function card({
 
   const dispatch = useAppDispatch();
 
-  // React.useEffect(() => {
-  //   dispatch(FetchProduct());
-
-  // }, []);
-
-  // const truncateString= (x: any,num=23) => {
-  //   x > num  ? x.substring(0, num) : x;
-  // };
-
   const truncateString = (str: any) =>
     str.length > 23 ? str.slice(0, 23) : str;
-
-  // console.log("Prod Item   == > ", ProductItem);
 
   let oe = [];
 
@@ -62,14 +51,6 @@ export default function card({
 
   console.log("Cart in card === > ", cart);
 
-  // console.log(" ue ====>  ", JSON.parse(mg)[1]?.Title.id)
-
-  // let ue =Array.from(JSON.parse(mg)) ;
-
-  // console.log("ue ===> > >",ue)
-
-  //+++++++++++++++++++++++
-
   for (let i = 1; i <= cart.length; i++) {
     console.log(" ID ==== >>  ", cart[i]?.Title.id);
 
@@ -77,24 +58,6 @@ export default function card({
   }
 
   console.log("oe === > ", oe);
-
-  ///++++++++++++++++++++++++++++++++++++++++++
-
-  // let ue = JSON.parse(mg);
-
-  // for (let i = 1; i <= ue.length; i++) {
-  //   console.log(" ID ==== >>  ", ue[i]?.Title.id);
-
-  //   oe.push(ue[i]?.Title.id);
-  // }
-
-  // console.log("oe === > ", oe);
-
-  // React.useEffect(() => {}, [oe]);
-
-  ///++++++++++++++++++++++++++++++++++++++++++
-
-  // console.log("Title  ===== >> ", ue[1]?.Title.id);
 
   return (
     <Card
@@ -119,8 +82,6 @@ export default function card({
           component="div"
           textAlign={"center"}
         >
-          {/* {alo(ProductItem.title)} */}
-
           {truncateString(ProductItem.title)}
         </Typography>
         <Typography
@@ -186,36 +147,5 @@ export default function card({
         </Button>
       </CardActions>
     </Card>
-
-    // <Card sx={{ maxWidth: 345 }}  key={ProductItem.id}>
-    //   {/* <CardMedia
-    //     component="img"
-    //     alt="green iguana"
-    //     height="140"
-    //     image={ProductItem.image}
-    //   /> */}
-    //   <CardContent>
-    //     <Typography
-    //       gutterBottom
-    //       variant="h5"
-    //       component="div"
-    //       textAlign={"center"}
-    //     >
-    //       {ProductItem.title}
-    //     </Typography>
-    //     <Typography
-    //       variant="body2"
-    //       color="text.secondary"
-    //       justifyContent={"center"}
-    //       alignContent={"center"}
-    //     >
-    //      $ {ProductItem.price}
-    //     </Typography>
-    //   </CardContent>
-    //   <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
-    //     <Button size="small">Share</Button>
-    //     <Button size="small">Learn More</Button>
-    //   </CardActions>
-    // </Card>
   );
 }

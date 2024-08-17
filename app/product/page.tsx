@@ -41,19 +41,13 @@ export default function page() {
 
   React.useEffect(() => {
     dispatch(FetchProduct());
-    // const data = useAppSelector((state) => state.Product.data);
-    // const issues = useAppSelector((state) => state.Product.issues);
   }, [dispatch]);
-
-  // dispatch(FetchProduct());
 
   const data = useAppSelector((state) => state.Product?.data);
 
   const issues = useAppSelector((state) => state.Product?.issues);
 
   console.log("Data ====>", data);
-
-  //   const cart = useAppSelector((state) => state.Cart.cart);
 
   type Product = {
     id: any;
@@ -68,12 +62,6 @@ export default function page() {
 
   return (
     <div
-      // style={{
-      //   display: "flex",
-      //   gap: "2rem",
-      //   marginBlock: "2rem",
-      //   marginInline: "2rem",
-      // }}
       className="bg-lime-400 flex flex-col lg:flex-row gap-10 my-5 mx-5  sm:bg-yellow-500 md:bg-blue-600 lg:bg-slate-500   xl:bg-teal-600 
       
       p-5 rounded"
@@ -87,10 +75,6 @@ export default function page() {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {/* {Array.from(Array(6)).map((_, index) => ( */}
-            {/* <Grid item xs={2} sm={4} md={4} key={index}> */}
-            {/* <Item>xs=2</Item> */}
-
             {(() => {
               if (Object.values(issues).length > 0) {
                 return Object.values(issues).map((ProductItem: any) => (

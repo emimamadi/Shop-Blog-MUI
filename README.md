@@ -18,6 +18,8 @@ npm i type /  react slider
 
 npm i sass
 
+npm i next@latest react@latest react-dom@latest eslint-config-next@latest
+
 ```
 
 

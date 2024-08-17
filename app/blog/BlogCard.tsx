@@ -40,63 +40,8 @@ export default function card({
 
   const router = useRouter();
 
-  // React.useEffect(() => {
-  //   dispatch(FetchProduct());
-
-  // }, []);
-
-  // const truncateString= (x: any,num=23) => {
-  //   x > num  ? x.substring(0, num) : x;
-  // };
-
   const truncateString = (str: any, num: number) =>
     str.length > num ? str.slice(0, num) : str;
-
-  // console.log("Prod Item   == > ", ProductItem);
-
-  // let oe = [];
-
-  // let mg = localStorage.getItem("cart") || "0";
-
-  // console.log(" mg ====>  ", mg);
-
-  // const cart = useAppSelector((state) => state.Cart.cart);
-
-  // console.log("Cart in card === > ", cart)
-
-  // console.log(" ue ====>  ", JSON.parse(mg)[1]?.Title.id)
-
-  // let ue =Array.from(JSON.parse(mg)) ;
-
-  // console.log("ue ===> > >",ue)
-
-  //+++++++++++++++++++++++
-
-  //    for (let i = 1; i <= cart.length; i++) {
-  //    console.log(" ID ==== >>  ", cart[i]?.Title.id);
-
-  //    oe.push(cart[i]?.Title.id);
-  //  }
-
-  //  console.log("oe === > ", oe);
-
-  ///++++++++++++++++++++++++++++++++++++++++++
-
-  // let ue = JSON.parse(mg);
-
-  // for (let i = 1; i <= ue.length; i++) {
-  //   console.log(" ID ==== >>  ", ue[i]?.Title.id);
-
-  //   oe.push(ue[i]?.Title.id);
-  // }
-
-  // console.log("oe === > ", oe);
-
-  // React.useEffect(() => {}, [oe]);
-
-  ///++++++++++++++++++++++++++++++++++++++++++
-
-  // console.log("Title  ===== >> ", ue[1]?.Title.id);
 
   return (
     <Card

@@ -10,36 +10,6 @@ import { useAppSelector } from "./store";
 
 import _ from "lodash";
 
-
-
-
-// import { useAppDispatch, useAppSelector } from "./store";
-
-// import { FetchProduct, searchProduct } from "@/redux/productSlice";
-
-// const dispatch = useAppDispatch();
-
-// dispatch(FetchProduct());
-
-//   import { products } from "@/data/data";
-
-// const data = useAppSelector((state) => state.Product?.data);
-
-// export const SrcData = createAsyncThunk<
-//   string[],
-//   void,
-//   { rejectValue: string }
-// >("product/FetchProduct", async (_, thunkAPI) => {
-//   const response = await fetch("https://fakestoreapi.com/products?limit=15", {
-//     method: "GET",
-//   });
-
-//   const data = response.json();
-
-//   return data;
-// });
-
-
 export const BlogData = createAsyncThunk<
   string[],
   void,
@@ -54,13 +24,6 @@ export const BlogData = createAsyncThunk<
   return data;
 });
 
-
-
-
-
-
-// console.log("CART Redux  DATA == > ", data )
-
 interface IssuesState {
   data: string[];
 }
@@ -74,19 +37,11 @@ const cartSlice = createSlice({
     data: [""],
     loading: false,
     error: null,
-    //   issues:{},
-    //   cart:[{}]
-
   },
   reducers: {
     getData: (state) => {
-
-      console.log("blog 1111== > ", state.data)
-
-
+      console.log("blog 1111== > ", state.data);
     },
-
-
   },
   extraReducers: (builder) => {
     builder.addCase(BlogData.pending, (state, action) => {
@@ -94,14 +49,11 @@ const cartSlice = createSlice({
       state.error = null;
     });
     builder.addCase(
-     BlogData.fulfilled,
+      BlogData.fulfilled,
       (state, action: PayloadAction<string[]>) => {
         state.loading = false;
 
         state.data = Object.values(action.payload);
-
-        // state.data.unshift()
-        //  state.data = JSON.parse(action.payload)
       }
     );
   },

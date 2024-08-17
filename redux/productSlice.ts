@@ -13,7 +13,7 @@ export const FetchProduct = createAsyncThunk<
 >("product/FetchProduct", async (_, thunkAPI) => {
   const response = await fetch("https://fakestoreapi.com/products?limit=15", {
     method: "GET",
-    cache:"force-cache"
+    cache: "force-cache",
   });
 
   const data = response.json();
@@ -32,56 +32,9 @@ const productSlice = createSlice({
   },
   reducers: {
     searchProduct: (state, action: PayloadAction<string[]>) => {
-      console.log("state.data = ", state.data);
-      console.log(action.payload);
-
-      // console.log(
-      //   "taghi = ",
-      //   state.issues
-      //     .filter((item: any) =>
-      //       item.title.toLowerCase().includes(action.payload)
-      //     )
-      //     .map((x: any) => x.title)
-      // );
-
-      // state.data = [];
-
-      // do {
-
-      //   state.issues =
-      //     state.issues.filter((item: any) =>
-      //       item.title.includes(action.payload)
-      //     )
-
       state.issues = state.data.filter((item: any) =>
         item.title.includes(action.payload)
       );
-
-      // } while (action.payload.length <1);
-
-      // if (action.payload.length > 0) {
-
-      // }
-
-      // console.log(
-      //   "taghi = ",
-      //   state.data
-      //     .filter((item: any) =>
-      //       item.title.toLowerCase().includes(action.payload)
-      //     )
-      //     .map((x: any) => x.title)
-      // );
-
-      console.log("issues = ", Object.values(state.issues));
-
-      const items = Object.values(state.issues);
-
-      console.log(
-        "item = ",
-        items.map((item: any) => item.title)
-      );
-
-      console.log("Asghar = ", 1);
     },
 
     priceProduct: (state, action: PayloadAction<number[]>) => {
@@ -95,8 +48,6 @@ const productSlice = createSlice({
             Number(action.payload[0]) < Number(item.price)
         )
         .map((x: any) => x);
-
-      // Object.values(state.issues).length >1 ? state.issues : "not Found"
     },
 
     rateProduct: (state, action: PayloadAction<number[]>) => {
@@ -110,17 +61,11 @@ const productSlice = createSlice({
             Number(action.payload[0]) < Number(item.rating.rate)
         )
         .map((x: any) => x);
-
-      // Object.values(state.issues).length >1 ? state.issues : "not Found"
     },
 
     categoryProduct: (state, action: PayloadAction<string[]>) => {
       console.log(" CHECKED ===> ", action.payload[0]);
       console.log(" ITEM === >", action.payload[1]);
-
-      // action.payload[0]
-      //   ? new Set(state.category).add(action.payload[1])
-      //   : new Set().delete(action.payload[1]);
 
       action.payload[0]
         ? state.category.push(action.payload[1])
@@ -137,31 +82,7 @@ const productSlice = createSlice({
       ];
 
       console.log("ISSUES ====>  ", state.issues);
-
-      // state.issues=state.category.length==0 ? state.data : state.data.filter((mi)=>state.category.includes(mi.category))
-
-      // state.issues =
-      //   state.category.size == 0
-      //     ? state.data
-      //     : Object(state.data).values.filter((h: any) =>
-      //         state.category.has(state.category)
-      //       );
-
-      // state.issues = [
-      //   ...state.data
-      //     .filter((item: any) =>
-      //       item.category.includes(action.payload)
-      //     )
-      //     .map((x: any) => x),
-      // ];
     },
-
-    // increment: (state) => state + 1,
-    // decrement: (state) => state - 1,
-    // multiply: {
-    //   reducer: (state, action: PayloadAction<number>) => state * action.payload,
-    //   prepare: (value?: number) => ({ payload: value || 2 }), // fallback if the payload is a falsy value
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(FetchProduct.pending, (state, action) => {
@@ -175,9 +96,6 @@ const productSlice = createSlice({
 
         state.issues = Object.values(action.payload);
         state.data = Object.values(action.payload);
-
-        // state.data.unshift()
-        //  state.data = JSON.parse(action.payload)
       }
     );
   },

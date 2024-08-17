@@ -36,7 +36,7 @@ import ReactSlider from "react-slider";
 
 import { useAppSelector, useAppDispatch } from "@/redux/store";
 
-import GradeIcon from '@mui/icons-material/Grade';
+import GradeIcon from "@mui/icons-material/Grade";
 
 import {
   searchProduct,
@@ -55,7 +55,7 @@ const minRate = 0;
 
 const maxRate = 6;
 
-export default function list({className}:{className:string}) {
+export default function list({ className }: { className: string }) {
   const [open, setOpen] = React.useState(true);
 
   const [mamad, setMamad] = React.useState(true);
@@ -115,7 +115,7 @@ export default function list({className}:{className:string}) {
         />
       </Box>
 
-      <div style={{ maxWidth: "14rem", marginInline:"1rem" }}>
+      <div style={{ maxWidth: "14rem", marginInline: "1rem" }}>
         <Accordion defaultExpanded>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -194,12 +194,6 @@ export default function list({className}:{className:string}) {
                 />
               </li>
             </ul>
-
-            {/* <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography> */}
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -211,7 +205,7 @@ export default function list({className}:{className:string}) {
             <GradeIcon /> <Typography>Range</Typography>
           </AccordionSummary>
           <AccordionDetails>
-          <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-4">
               <li className="flex flex-col pl-2">
                 {/* <h2>Price Range</h2> */}
                 <div className="mx-auto values">
@@ -232,11 +226,7 @@ export default function list({className}:{className:string}) {
                 />
               </li>
             </ul>
-            {/* <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography> */}
+       
           </AccordionDetails>
         </Accordion>
       </div>
