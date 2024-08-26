@@ -6,7 +6,7 @@ import {
   PayloadAction,
   current,
 } from "@reduxjs/toolkit";
-import { useAppSelector } from "./store";
+
 
 import _ from "lodash";
 
@@ -65,6 +65,11 @@ const cartSlice = createSlice({
     },
 
     increaseCart: (state, action: PayloadAction<number>) => {
+
+      console.log("STATE CART ==",state.cart)
+
+      console.log("Action payload ==" ,action.payload)
+
       let qw = _.cloneDeep(state.cart);
 
       for (let mo = 1; mo < qw.length; mo++) {

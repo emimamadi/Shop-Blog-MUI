@@ -23,6 +23,8 @@ import _ from "lodash";
 import { Divider } from "@mui/material";
 
 export const Navbar = () => {
+  let QTY = [];
+
   const vn = [];
 
   const cart = useAppSelector((state) => state.Cart.cart);
@@ -35,9 +37,22 @@ export const Navbar = () => {
       Title: zx[i]?.Title.title,
       QTY: zx[i]?.qty,
     });
+    QTY.push(zx[i]?.qty);
   }
 
+  QTY.pop();
+
+  var sum = QTY.reduce((accumulator: number, currentValue: number) => {
+    return accumulator + currentValue;
+  }, 0);
+
   console.log("vn 11111 === > ", vn);
+
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const pages = ["product", "blog", "checkout", "about"];
 
@@ -167,8 +182,33 @@ export const Navbar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0 }}
+                style={{ position: "relative" }}
+              >
+                {/* <Avatar style={{color:"red",position:"absolute",bottom:"1rem",zIndex:"10",backgroundColor:"black"}}>{sum}</Avatar> */}
+                <Avatar alt="Remy Sharp" src="./favicon.ico" />
+
+                {sum
+                  ? isClient && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "1rem",
+                          left:"1rem",
+                          zIndex: "99",
+                          backgroundColor: "red",
+                          width:"2rem",
+                          height:"2rem",
+                          borderRadius:"50%"
+
+                        }}
+                      >
+                        {sum}
+                      </div>
+                    )
+                  : null}
               </IconButton>
             </Tooltip>
             <Menu

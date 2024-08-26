@@ -22,7 +22,12 @@ type Product = {
   description: any;
 };
 
-export default function page({ params }: { params: { id: number } }) {
+export default function page({
+  params,
+}: {
+  params: { id: number };
+  product: { product: Product };
+}) {
   const dispatch = useAppDispatch();
 
   const { id } = params;
@@ -32,6 +37,8 @@ export default function page({ params }: { params: { id: number } }) {
   }, [dispatch]);
 
   const data = useAppSelector((state) => state.Product?.data);
+
+  console.log("DDData === ", data);
 
   const ProductItem = Array.from(data).find((x: any) => x.id == id);
 
@@ -43,29 +50,37 @@ export default function page({ params }: { params: { id: number } }) {
     oe.push(cart[i]?.Title.id);
   }
 
-  return (
-    <div className=" flex my-5 w-3/4 mx-auto gap-3">
-      <div className="h-[50vh] w-1/2 border-2 rounded flex justify-center py-10">
-        {" "}
-        <img
-          src={(ProductItem as undefined | Product)?.image}
-          className="h-[50vh] w-1/2  "
-        />
-      </div>
+  console.log("Prod === ", ProductItem);
 
-      <div className="w-1/2 min-h-screen flex flex-col items-center justify-evenly border-2 rounded">
-        <img
-          src={(ProductItem as undefined | Product)?.image}
-          className="h-40 w-1/2  "
-        />
-        <h5 className="text-center mx-5">
-          {(ProductItem as undefined | Product)?.title}
-        </h5>
-        <p className="text-center mx-5">
-          {(ProductItem as undefined | Product)?.description}
-        </p>
-        <p>$ {(ProductItem as undefined | Product)?.price}</p>
-      </div>
-    </div>
+  return (
+    <>
+      {ProductItem != undefined || null ? (
+        <div className=" flex-col my-5 w-3/4 mx-auto gap-3 sm:flex sm:flex-row">
+          <div className="h-[50vh] w-1/2 border-2 rounded justify-center py-10 hidden sm:flex">
+            {" "}
+            <img
+              src={(ProductItem as undefined | Product)?.image}
+              className="h-[50vh] w-1/2  "
+            />
+          </div>
+
+          <div className="w-full sm:w-1/2 min-h-screen flex flex-col items-center justify-evenly border-2 rounded">
+            <img
+              src={(ProductItem as undefined | Product)?.image}
+              className="h-40 w-1/2  "
+            />
+            <h5 className="text-center mx-5">
+              {(ProductItem as undefined | Product)?.title}
+            </h5>
+            <p className="text-center mx-5">
+              {(ProductItem as undefined | Product)?.description}
+            </p>
+            <p>$ {(ProductItem as undefined | Product)?.price}</p>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
