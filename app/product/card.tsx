@@ -26,6 +26,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/store";
 import { AddCart, removeCart, increaseCart } from "@/redux/cartSlice";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function card({
   ProductItem,
@@ -65,16 +66,19 @@ export default function card({
       key={ProductItem.id}
       style={{ borderRadius: "15px" }}
     >
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        // height="5"
-        image={ProductItem.image}
-        style={{ height: "20rem" }}
-        onClick={() => {
-          router.push(`/product/${ProductItem.id}`);
-        }}
-      />
+      <Link href={`/product/${ProductItem.id}`}>
+        <CardMedia
+          component="img"
+          alt="green iguana"
+          // height="5"
+          image={ProductItem.image}
+          style={{ height: "20rem" }}
+
+          // onClick={() => {
+          //   router.push(`/product/${ProductItem.id}`);
+          // }}
+        />
+      </Link>
       <CardContent>
         <Typography
           gutterBottom
@@ -110,6 +114,7 @@ export default function card({
                 dispatch(removeCart(e.target.value));
                 // console.log(e.target.value)
               }}
+             style={{backgroundColor:"red", color:"white"}}
             >
               Decrease
             </Button>
@@ -121,6 +126,7 @@ export default function card({
                 dispatch(increaseCart(e.target.value));
                 // console.log(e.target.value)
               }}
+              style={{backgroundColor:"green", color:"white"}}
             >
               Increase
             </Button>
@@ -133,18 +139,25 @@ export default function card({
               dispatch(AddCart(e.target.value));
               // console.log(e.target.value)
             }}
+
+            style={{backgroundColor:"blueviolet", color:"white"}}
+           
+
+            
           >
             Add To Cart
           </Button>
         )}
-        <Button
-          size="small"
-          onClick={() => {
-            router.push(`/product/${ProductItem.id}`);
-          }}
-        >
-          Learn More
-        </Button>
+        <Link href={`/product/${ProductItem.id}`}>
+          <Button
+            size="small"
+            onClick={() => {
+              router.push(`/product/${ProductItem.id}`);
+            }}
+          >
+            Learn More
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

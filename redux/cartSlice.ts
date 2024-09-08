@@ -129,7 +129,7 @@ const cartSlice = createSlice({
       const item = Object.values(state.cart).flatMap((mk: any) => mk);
 
       for (let mo = 1; mo < Object.values(item).length; mo++) {
-        if (Object.values(item)[mo]["id"] == action.payload.id) {
+        if (Object.values(item)[mo]["Title"]["id"] == action.payload.id) {
           var QTY = [];
           if (Number(action.payload.value) > 0) {
             Object.values(item)[mo]["qty"] = Number(action.payload.value);
@@ -137,7 +137,7 @@ const cartSlice = createSlice({
           }
           if (Number(action.payload.value) == 0) {
             state.cart = [...state.cart].filter(
-              (item: any) => item.id != Number(action.payload.id)
+              (item: any) => item.Title?.id != Number(action.payload.id)
             );
           }
         }

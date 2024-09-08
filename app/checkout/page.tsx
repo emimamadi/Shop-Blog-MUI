@@ -13,11 +13,14 @@ import Paper from "@mui/material/Paper";
 import _ from "lodash";
 
 import { useAppSelector, useAppDispatch } from "@/redux/store";
+import { QTYcart } from "@/redux/cartSlice";
 
 export default function page() {
   const [isClient, setIsClient] = React.useState(false);
 
   const cart = useAppSelector((state) => state.Cart.cart);
+
+  const dispatch = useAppDispatch();
 
   const cx = [];
 
@@ -103,7 +106,21 @@ export default function page() {
                   <StyledTableCell align="left">{row.Title}</StyledTableCell>
                   <StyledTableCell align="left">{row.Price}</StyledTableCell>
                   <StyledTableCell align="left">{row.Category}</StyledTableCell>
-                  <StyledTableCell align="left">{row.QTY}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    <input
+                      type="number"
+                      id="number-input"
+                      aria-describedby="helper-text-explanation"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder={row.QTY}
+                      required
+                      onChange={(e: any) => {
+                        dispatch(QTYcart({ id: row.ID, value: e.target.value }));
+                      }}
+                      min={-1}
+                      defaultValue={row.QTY}
+                    />
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

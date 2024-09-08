@@ -21,6 +21,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/store";
 
 import _ from "lodash";
 import { Divider } from "@mui/material";
+import Link from "next/link";
 
 export const Navbar = () => {
   let QTY = [];
@@ -196,13 +197,13 @@ export const Navbar = () => {
                         style={{
                           position: "absolute",
                           bottom: "1rem",
-                          left:"1rem",
+                          left: "1rem",
                           zIndex: "99",
-                          backgroundColor: "red",
-                          width:"2rem",
-                          height:"2rem",
-                          borderRadius:"50%"
-
+                          color: "white",
+                          backgroundColor:"green",
+                          width: "2rem",
+                          height: "2rem",
+                          borderRadius: "50%",
                         }}
                       >
                         {sum}
@@ -238,6 +239,12 @@ export const Navbar = () => {
                       </Typography>
                     ))}
                   </div>{" "}
+                  <Link
+                    href={"/checkout"}
+                    className="btn bg-green-800 w-full h-5 rounded-lg flex justify-center items-center my-auto p-5  text-white"
+                  >
+                    Check out
+                  </Link>
                 </div>
               ) : null}
               <Divider />

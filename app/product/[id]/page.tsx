@@ -32,15 +32,15 @@ export default function page({
 
   const { id } = params;
 
+  const [product, setProduct] = React.useState<Product | null>(null);
+
   React.useEffect(() => {
-    dispatch(FetchProduct());
-  }, [dispatch]);
+    fetch(`https://fakestoreapi.com/products/${id}`)
+      .then((response) => response.json())
+      .then((data) => setProduct(data));
+  }, []);
 
-  const data = useAppSelector((state) => state.Product?.data);
-
-  console.log("DDData === ", data);
-
-  const ProductItem = Array.from(data).find((x: any) => x.id == id);
+  console.log("post = ", product);
 
   let oe = [];
   const cart = useAppSelector((state) => state.Cart.cart);
@@ -50,32 +50,22 @@ export default function page({
     oe.push(cart[i]?.Title.id);
   }
 
-  console.log("Prod === ", ProductItem);
+  console.log("Prod === ", product);
 
   return (
     <>
-      {ProductItem != undefined || null ? (
+      {product ? (
         <div className=" flex-col my-5 w-3/4 mx-auto gap-3 sm:flex sm:flex-row">
           <div className="h-[50vh] w-1/2 border-2 rounded justify-center py-10 hidden sm:flex">
             {" "}
-            <img
-              src={(ProductItem as undefined | Product)?.image}
-              className="h-[50vh] w-1/2  "
-            />
+            <img src={product.image} className="h-[50vh] w-1/2  " />
           </div>
 
           <div className="w-full sm:w-1/2 min-h-screen flex flex-col items-center justify-evenly border-2 rounded">
-            <img
-              src={(ProductItem as undefined | Product)?.image}
-              className="h-40 w-1/2  "
-            />
-            <h5 className="text-center mx-5">
-              {(ProductItem as undefined | Product)?.title}
-            </h5>
-            <p className="text-center mx-5">
-              {(ProductItem as undefined | Product)?.description}
-            </p>
-            <p>$ {(ProductItem as undefined | Product)?.price}</p>
+            <img src={product?.image} className="h-40 w-1/2  " />
+            <h5 className="text-center mx-5">{product?.title}</h5>
+            <p className="text-center mx-5">{product?.description}</p>
+            <p>$ {product?.price}</p>
           </div>
         </div>
       ) : (
