@@ -6,23 +6,41 @@ import {
   PayloadAction,
   current,
 } from "@reduxjs/toolkit";
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import _ from "lodash";
 
-export const SrcData = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->("product/FetchProduct", async (_, thunkAPI) => {
-  const response = await fetch("https://fakestoreapi.com/products?limit=15", {
-    method: "GET",
-  });
+export const SrcData = createApi({
+  reducerPath: "productApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://fakestoreapi.com/",
+  }),
+  tagTypes: [],
 
-  const data = response.json();
+  endpoints: (builder) => ({
+    FetchProduct: builder.query({
+      query: () => `/products?limit=15`,
+    }),
 
-  return data;
+
+  }),
 });
+
+export const { useFetchProductQuery } = SrcData;
+
+// export const SrcData = createAsyncThunk<
+//   string[],
+//   void,
+//   { rejectValue: string }
+// >("product/FetchProduct", async (_, thunkAPI) => {
+//   const response = await fetch("https://fakestoreapi.com/products?limit=15", {
+//     method: "GET",
+//   });
+
+//   const data = response.json();
+
+//   return data;
+// });
 
 // console.log("CART Redux  DATA == > ", data )
 
@@ -65,21 +83,25 @@ const cartSlice = createSlice({
     },
 
     increaseCart: (state, action: PayloadAction<number>) => {
+      console.log("STATE CART ==", state.cart);
 
-      console.log("STATE CART ==",state.cart)
-
-      console.log("Action payload ==" ,action.payload)
+      console.log("Action payload ==", action.payload);
 
       let qw = _.cloneDeep(state.cart);
 
       for (let mo = 1; mo < qw.length; mo++) {
-        qw[mo]["Title"]["id"] == action.payload
-          ? (qw[mo]["qty"] = qw[mo]["qty"] + 1)
-          : 0;
+
+        if(qw[mo] && qw[mo].Title){
+          qw[mo]["Title"]["id"] == action.payload
+            ? (qw[mo]["qty"] = qw[mo]["qty"] + 1)
+            : 0;
+
+        }
+
 
         console.log("STATE-CART ===>  ", state.cart);
 
-        console.log("QTY + ID ==> ", qw[mo]["Title"]["qty"]);
+        // console.log("QTY + ID ==> ", qw[mo]["Title"]["qty"]);
       }
 
       state.cart = qw;
@@ -153,16 +175,10 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(SrcData.pending, (state, action) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(
-      SrcData.fulfilled,
-      (state, action: PayloadAction<string[]>) => {
-        state.loading = false;
-
-        state.content = Object.values(action.payload);
+    builder.addMatcher(
+      SrcData.endpoints.FetchProduct.matchFulfilled,
+      (state, { payload }) => {
+        state.content = payload;
       }
     );
   },

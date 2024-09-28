@@ -24,7 +24,16 @@ import List from "./list";
 
 import { useAppSelector, useAppDispatch } from "@/redux/store";
 
-import { FetchProduct, searchProduct } from "@/redux/productSlice";
+import {
+  getProduct,
+  searchProduct,
+  useFetchProductQuery,
+} from "@/redux/productSlice";
+
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+
+import Loading from "@/app/product/loading";
 
 // import { AddCart, removeCart, increaseCart } from "@/redux/cartSlice";
 
@@ -37,17 +46,25 @@ export default function page() {
     color: theme.palette.text.secondary,
   }));
 
+  const { data } = useFetchProductQuery("");
+
+  console.log("Data kjnkjnjknkkjnkjnkjnkj ====>> ", data);
+  // console.log("Data ERROR ====>> ", error);
+  // console.log("Data loading ====>> ", isLoading);
+
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    dispatch(FetchProduct());
+    dispatch(getProduct());
   }, [dispatch]);
 
-  const data = useAppSelector((state) => state.Product?.data);
+  const gh = useAppSelector((state) => state.Product?.data);
+
+  console.log("gh 1515 ====>> ", gh);
+
+  // data=React.useMemo(()=>{data},[]);
 
   const issues = useAppSelector((state) => state.Product?.issues);
-
-  console.log("Data ====>", data);
 
   type Product = {
     id: any;
@@ -64,11 +81,17 @@ export default function page() {
     <div
       className="bg-lime-400 flex flex-col lg:flex-row gap-10 my-5 mx-5  sm:bg-yellow-500 md:bg-blue-600 lg:bg-slate-500   xl:bg-teal-600 
       
-      p-5 rounded"
+      p-5 rounded min-h-screen"
     >
       <List className="bg-yellow-500" />
+      {/* 
+      <React.Suspense fallback={<Loading/>}>
+      
+      
+      
+      </React.Suspense> */}
 
-      {Object.values(data).length > 1 ? (
+      {data && Object.values(data).length > 1 ? (
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container

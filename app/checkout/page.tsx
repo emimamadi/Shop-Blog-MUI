@@ -27,16 +27,16 @@ export default function page() {
   const h = _.cloneDeep(cart);
 
   for (let k = 1; k <= h.length; k++) {
-    cx.push({
-      ID: h[k]?.Title.id,
-      Title: h[k]?.Title.title,
-      Price: h[k]?.Title.price,
-      Category: h[k]?.Title.category,
-      QTY: h[k]?.qty,
-    });
+    if (h[k] && h[k].Title) {
+      cx.push({
+        ID: h[k].Title.id,
+        Title: h[k].Title.title,
+        Price: parseFloat((h[k].Title.price*h[k].qty).toString()).toFixed(2) ,
+        Category: h[k].Title.category,
+        QTY: h[k].qty,
+      });
+    }
   }
-
-  console.log("cx unshift == > ", cx.pop());
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -57,33 +57,18 @@ export default function page() {
       border: 0,
     },
   }));
-  function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number
-  ) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-  ];
 
   React.useEffect(() => {
     setIsClient(true);
   }, []);
 
+  console.log("cx ==> ", cx);
+
   return (
     <>
       {isClient ? (
         <TableContainer
-          className="mt-10 mx-5"
+          className="mt-10 mx-auto min-h-screen"
           style={{ width: "90rem" }}
           component={Paper}
         >
@@ -104,7 +89,7 @@ export default function page() {
                 {row.ID}
               </StyledTableCell> */}
                   <StyledTableCell align="left">{row.Title}</StyledTableCell>
-                  <StyledTableCell align="left">{row.Price}</StyledTableCell>
+                  <StyledTableCell align="left"> $ {row.Price} </StyledTableCell>
                   <StyledTableCell align="left">{row.Category}</StyledTableCell>
                   <StyledTableCell align="left">
                     <input
@@ -115,7 +100,9 @@ export default function page() {
                       placeholder={row.QTY}
                       required
                       onChange={(e: any) => {
-                        dispatch(QTYcart({ id: row.ID, value: e.target.value }));
+                        dispatch(
+                          QTYcart({ id: row.ID, value: e.target.value })
+                        );
                       }}
                       min={-1}
                       defaultValue={row.QTY}

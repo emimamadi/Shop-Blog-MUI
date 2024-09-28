@@ -32,22 +32,25 @@ export const Navbar = () => {
 
   const zx = _.cloneDeep(cart);
 
-  for (let i = 1; i <= zx.length; i++) {
-    vn.push({
-      ID: zx[i]?.Title.id,
-      Title: zx[i]?.Title.title,
-      QTY: zx[i]?.qty,
-    });
-    QTY.push(zx[i]?.qty);
-  }
+  console.log("ZX  == ", zx);
 
-  QTY.pop();
+  for (let i = 1; i <= zx.length; i++) {
+    if (zx[i] && zx[i].Title) {
+      vn.push({
+        ID: zx[i].Title.id,
+        Title: zx[i].Title.title,
+        QTY: zx[i].qty,
+      });
+      QTY.push(zx[i].qty);
+    }
+  }
+  console.log("QTY   === > ", QTY);
 
   var sum = QTY.reduce((accumulator: number, currentValue: number) => {
     return accumulator + currentValue;
   }, 0);
 
-  console.log("vn 11111 === > ", vn);
+  console.log("VN === > ", vn);
 
   const [isClient, setIsClient] = React.useState(false);
 
@@ -93,7 +96,7 @@ export const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -104,7 +107,7 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Soroush Shop
+            Si Roush Shop
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -191,25 +194,23 @@ export const Navbar = () => {
                 {/* <Avatar style={{color:"red",position:"absolute",bottom:"1rem",zIndex:"10",backgroundColor:"black"}}>{sum}</Avatar> */}
                 <Avatar alt="Remy Sharp" src="./favicon.ico" />
 
-                {sum
-                  ? isClient && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: "1rem",
-                          left: "1rem",
-                          zIndex: "99",
-                          color: "white",
-                          backgroundColor:"green",
-                          width: "2rem",
-                          height: "2rem",
-                          borderRadius: "50%",
-                        }}
-                      >
-                        {sum}
-                      </div>
-                    )
-                  : null}
+                {sum && isClient ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "1rem",
+                      left: "1rem",
+                      zIndex: "99",
+                      color: "white",
+                      backgroundColor: "green",
+                      width: "2rem",
+                      height: "2rem",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {sum}
+                  </div>
+                ) : null}
               </IconButton>
             </Tooltip>
             <Menu
@@ -228,7 +229,7 @@ export const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {vn.length > 1 ? (
+              {vn ? (
                 <div>
                   <Typography textAlign="justify">Cart : </Typography>
                   <div className="bg-yellow-200 rounded mx-5 mb-2 border border-slate-600 border-b-2 ">

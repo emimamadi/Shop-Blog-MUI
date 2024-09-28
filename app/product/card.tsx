@@ -53,9 +53,9 @@ export default function card({
   console.log("Cart in card === > ", cart);
 
   for (let i = 1; i <= cart.length; i++) {
-    console.log(" ID ==== >>  ", cart[i]?.Title.id);
-
-    oe.push(cart[i]?.Title.id);
+    if (cart[i] && cart[i].Title) {
+      oe.push(cart[i].Title.id);
+    }
   }
 
   console.log("oe === > ", oe);
@@ -114,7 +114,7 @@ export default function card({
                 dispatch(removeCart(e.target.value));
                 // console.log(e.target.value)
               }}
-             style={{backgroundColor:"red", color:"white"}}
+              style={{ backgroundColor: "red", color: "white" }}
             >
               Decrease
             </Button>
@@ -126,7 +126,7 @@ export default function card({
                 dispatch(increaseCart(e.target.value));
                 // console.log(e.target.value)
               }}
-              style={{backgroundColor:"green", color:"white"}}
+              style={{ backgroundColor: "green", color: "white" }}
             >
               Increase
             </Button>
@@ -139,11 +139,7 @@ export default function card({
               dispatch(AddCart(e.target.value));
               // console.log(e.target.value)
             }}
-
-            style={{backgroundColor:"blueviolet", color:"white"}}
-           
-
-            
+            style={{ backgroundColor: "blueviolet", color: "white" }}
           >
             Add To Cart
           </Button>

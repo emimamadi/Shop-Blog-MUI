@@ -5,21 +5,43 @@ import {
   createAsyncThunk,
   PayloadAction,
 } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const FetchProduct = createAsyncThunk<
-  string[],
-  void,
-  { rejectValue: string }
->("product/FetchProduct", async (_, thunkAPI) => {
-  const response = await fetch("https://fakestoreapi.com/products?limit=15", {
-    method: "GET",
-    cache: "force-cache",
-  });
+export const productApi = createApi({
+  reducerPath: "productApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://fakestoreapi.com/",
+  }),
+  tagTypes: [],
 
-  const data = response.json();
-
-  return data;
+  endpoints: (builder) => ({
+    FetchProduct: builder.query({
+      query: () => `/products?limit=15`,
+    }),
+    FetchProductByID: builder.query({
+      query: (ID) => `/products/${ID}`,
+    }),
+  }),
 });
+
+export const { useFetchProductQuery , useFetchProductByIDQuery } = productApi;
+
+// export const FetchProduct = createAsyncThunk<
+//   string[],
+//   void,
+//   { rejectValue: string }
+// >("product/FetchProduct", async (_, thunkAPI) => {
+//   const response = await fetch("https://fakestoreapi.com/products?limit=15", {
+//     method: "GET",
+//     cache: "force-cache",
+//   });
+
+//   const data = response.json();
+
+//   return data;
+// });
+
+
 
 const productSlice = createSlice({
   name: "product",
@@ -31,6 +53,9 @@ const productSlice = createSlice({
     category: [""],
   },
   reducers: {
+    getProduct: (state) => {
+      console.log("state.data 51 =  = ", state.data);
+    },
     searchProduct: (state, action: PayloadAction<string[]>) => {
       state.issues = state.data.filter((item: any) =>
         item.title.includes(action.payload)
@@ -75,33 +100,29 @@ const productSlice = createSlice({
 
       console.log("CATEGory  ====>  ", Object.values(state.category));
 
-      state.issues = [
-        ...state.data.filter((item: any) =>
-          state.category.includes(item.category)
-        ),
-      ];
-
-      console.log("ISSUES ====>  ", state.issues);
+      (state.issues = state.data.filter((item: any) =>
+        state.category.includes(item.category)
+      )),
+        console.log("ISSUES ====>  ", state.issues);
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(FetchProduct.pending, (state, action) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(
-      FetchProduct.fulfilled,
-      (state, action: PayloadAction<string[]>) => {
-        state.loading = false;
-
-        state.issues = Object.values(action.payload);
-        state.data = Object.values(action.payload);
+    builder.addMatcher(
+      productApi.endpoints.FetchProduct.matchFulfilled,
+      (state, { payload }) => {
+        state.issues = payload;
+        state.data = payload;
       }
     );
   },
 });
 
-export const { priceProduct, searchProduct, categoryProduct, rateProduct } =
-  productSlice.actions;
+export const {
+  getProduct,
+  priceProduct,
+  searchProduct,
+  categoryProduct,
+  rateProduct,
+} = productSlice.actions;
 
 export default productSlice.reducer;

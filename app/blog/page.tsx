@@ -37,7 +37,7 @@ export default function page() {
   console.log("Blog Post == > ", blogPost);
 
   return (
-    <div className="my-20 border border-b-2 border-black mx-10 rounded">
+    <div className="my-20 border border-b-2 border-black mx-10 rounded min-h-screen">
       <div className="flex justify-center my-10 ">
         <h1
           className="font-bold border border-b-red-950 w-20  text-center"
