@@ -6,7 +6,7 @@ export default function index() {
     
     <div className="w-[96vw] grid-cols-1 mx-auto bg-zinc-700  text-white h-auto px-32 py-10 pb-72 rounded-md mt-3 md:grid md:grid-cols-3 md:gap-10 md:h-40 ">
       <div className="flex-col">
-        <address>MHD</address>
+        <address>MHD 2</address>
       </div>
       <div className="flex-col content-evenly">
         <p>
